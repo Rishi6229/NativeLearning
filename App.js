@@ -1,29 +1,62 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { useState } from "react";
+import { StyleSheet, Text, View, Button, TextInput } from "react-native";
 
 export default function App() {
+  const [enteredGoal, setEnteredText] = useState("");
+  const [goalsList, setGoalsList] = useState([]);
+
+  function goalInputHandler(enteredGoal) {
+    setEnteredText(enteredGoal);
+  }
+
+  function addGoalHandler() {
+    console.log(enteredGoal);
+    setGoalsList((currentCourseGoal) => [...currentCourseGoal, enteredGoal]);
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.textProp}>Hello World !!</Text>
-      <Text style={styles.textProp}>Another piece of text !!</Text>
-      <Button title="kick ass" />
-      <StatusBar style="auto" />
+    <View style={styles.appContainer}>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.textInput}
+          placeholder="add your goal"
+          onChangeText={goalInputHandler}
+        />
+        <Button title="Add Goal" onPress={addGoalHandler} />
+      </View>
+      <View style={styles.goalsContainer}>
+        {goalsList.map((goal) => (
+          <Text key={goal}>{goal}</Text>
+        ))}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  appContainer: {
     flex: 1,
-    backgroundColor: "cyan",
-    alignItems: "center",
-    justifyContent: "center",
+    paddingTop: 50,
+    paddingHorizontal: 16,
+    backgroundColor: "white",
   },
-
-  textProp: {
-    margin: 1,
-    borderWidth: 2,
-    borderColor: "red",
-    padding: 10,
+  inputContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 24,
+    borderBottomWidth: 1,
+    borderBottomColor: "#cccccc",
+  },
+  textInput: {
+    borderWidth: 1,
+    borderColor: "#cccccc",
+    width: "75%",
+    marginRight: 8,
+    padding: 8,
+  },
+  goalsContainer: {
+    flex: 4.5,
   },
 });
