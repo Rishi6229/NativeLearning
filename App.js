@@ -7,7 +7,7 @@ import {
   FlatList,
 } from "react-native";
 
-import GoalItem from "./Components/goalItem";
+import GoalItem from "./Components/GoalItem";
 
 export default function App() {
   const [enteredGoal, setEnteredText] = useState("");
